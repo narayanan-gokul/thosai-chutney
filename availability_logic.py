@@ -16,3 +16,9 @@ def fufillable(hub_totals, consumer):
             else:
                 return Unstockable
             return Stockable
+
+def approval(consumer, fufillable(hub_totals, consumer)):
+    if fufillable(hub_totals, consumer) == "Stockable":
+        return True
+    else:
+        return False
