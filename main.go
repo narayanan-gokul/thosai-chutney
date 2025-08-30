@@ -9,7 +9,9 @@ import (
 
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/joho/godotenv"
-
+	"thosai-chutney/core/consumer"
+	"thosai-chutney/core/supplier"
+	"thosai-chutney/core/distributor"
 )
 
 func main() {
@@ -29,8 +31,15 @@ func main() {
 
 	fileServer := http.FileServer(http.Dir("./static"))
 
+	consumerRouter := consumer.ConsumerRouter(conn)
+	supplierRouter := supplier.SupplierRouter(conn)
+	distributorRouter := distributor.DistributorRouter(conn)
+
 	router := http.NewServeMux()
 	router.Handle("/", fileServer)
+	router.Handle("/consumer/", http.StripPrefix("/consumer", consumerRouter))
+	router.Handle("/supplier/", http.StripPrefix("/supplier", supplierRouter))
+	router.Handle("/distributor/", http.StripPrefix("/distributor", distributorRouter))
 
 	server := &http.Server{
 		Addr:    ":8080",
