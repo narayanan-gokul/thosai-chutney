@@ -7,6 +7,7 @@ import(
 	"github.com/jackc/pgx/v5/pgxpool"
 	"thosai-chutney/utils"
 	"thosai-chutney/core/misc"
+	"thosai-chutney/core/consumer"
 )
 
 func createDistributorFromSignup(conn *pgxpool.Pool) func(writer http.ResponseWriter, request *http.Request) {
@@ -20,6 +21,15 @@ func createDistributorFromSignup(conn *pgxpool.Pool) func(writer http.ResponseWr
 		writer.Header().Set("Content-Type", "application/json")
 		writer.WriteHeader(http.StatusCreated)
 		json.NewEncoder(writer).Encode(createResponse)
+	}
+}
+
+func getDistributors(conn *pgxpool.Pool) func(writer http.ResponseWriter, request *http.Request) {
+	return func(writer http.ResponseWriter, request *http.Request) {
+		userId, _ := request.Context().Value("userId").(int)
+		postcode := consumer.FindConsumer(conn, userId).Postcode
+		distributors := FindDistributorsForUser(conn, postcode)
+		json.NewEncoder(writer).Encode(distributors)
 	}
 }
 

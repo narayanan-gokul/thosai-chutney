@@ -6,3 +6,9 @@ type Distributor struct {
 	Name string `json:"name"`
 	Password string `json:"password"`
 }
+
+type ReadDistributorResponse struct {
+	DistId int `json:"dist_id"`
+	Name string `json:"name"`
+	Postcode int `json:"postcode"`
+}
