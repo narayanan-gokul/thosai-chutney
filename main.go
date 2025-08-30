@@ -12,6 +12,8 @@ import (
 	"thosai-chutney/core/consumer"
 	"thosai-chutney/core/supplier"
 	"thosai-chutney/core/distributor"
+	"thosai-chutney/core/cart"
+	"thosai-chutney/core/auth"
 )
 
 func main() {
@@ -34,12 +36,14 @@ func main() {
 	consumerRouter := consumer.ConsumerRouter(conn)
 	supplierRouter := supplier.SupplierRouter(conn)
 	distributorRouter := distributor.DistributorRouter(conn)
+	cartRouter := cart.CartRouter(conn)
 
 	router := http.NewServeMux()
 	router.Handle("/", fileServer)
 	router.Handle("/consumer/", http.StripPrefix("/consumer", consumerRouter))
 	router.Handle("/supplier/", http.StripPrefix("/supplier", supplierRouter))
 	router.Handle("/distributor/", http.StripPrefix("/distributor", distributorRouter))
+	router.Handle("/cart/", http.StripPrefix("/cart", auth.AuthMiddleware(cartRouter)))
 
 	server := &http.Server{
 		Addr:    ":8080",
