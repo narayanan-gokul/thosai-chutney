@@ -15,6 +15,7 @@ func createConsumerFromSignup(conn *pgxpool.Pool) func(writer http.ResponseWrite
 		var consumer Consumer
 		err := json.NewDecoder(request.Body).Decode(&consumer)
 		utils.CheckError(err)
+		defer request.Body.Close()
 
 		var createResponse = misc.IdReturnStruct{}
 		createResponse.Id = CreateConsumer(conn, &consumer)
