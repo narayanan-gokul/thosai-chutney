@@ -40,7 +40,7 @@ CREATE TABLE cart(
 	FOREIGN KEY(dist_id) REFERENCES distributor,
 	FOREIGN KEY(supp_id) REFERENCES supplier,
 	CONSTRAINT at_least_one_cart_owner CHECK (cons_id IS NOT NULL 
-		OR item_id IS NOT NULL OR supp_id IS NOT NULL),
+		OR item_id IS NOT NULL OR supp_id IS NOT NULL)
 );
 
 CREATE TABLE shipment(
