@@ -5,5 +5,6 @@ type Consumer struct {
 	LastName string `json:"last_name"`
 	Postcode int `json:"postcode"`
 	ConsId int `json:"cons_id"`
+	Password string
 }
 

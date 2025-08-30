@@ -25,6 +25,6 @@ func main() {
 	}
 	defer conn.Close()
 	fmt.Println("Connected to database!")
-	var p = consumer.Consumer{"Jane", "Doe", 2014, 1} 
-	consumer.CreateConsumer(conn, p)
+	var p = consumer.Consumer{"Jane", "Doe", 2014, 1, "pw"} 
+	consumer.CreateConsumer(conn, &p)
 }
