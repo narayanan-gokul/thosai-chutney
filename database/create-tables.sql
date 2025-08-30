@@ -1,0 +1,53 @@
+CREATE TABLE consumer(
+	cons_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	postcode INTEGER CHECK (postcode > 1000 AND postcode < 3708) NOT NULL,
+	first_name VARCHAR(30) NOT NULL,
+	last_name VARCHAR(30) NOT NULL,
+	password VARCHAR NOT NULL
+);
+
+CREATE TABLE supplier(
+	supp_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	postcode INTEGER CHECK (postcode > 1000 AND postcode < 3708) NOT NULL,
+	name VARCHAR(30) NOT NULL,
+	password VARCHAR NOT NULL
+);
+
+
+CREATE TABLE distributor(
+	dist_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	postcode INTEGER CHECK (postcode > 1000 AND postcode < 3708) NOT NULL,
+	name VARCHAR(30) NOT NULL,
+	password VARCHAR NOT NULL
+);
+
+CREATE TABLE item(
+	item_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	name VARCHAR(30) NOT NULL,
+	max_cap INTEGER NOT NULL,
+	price REAL NOT NULL CHECK (price >= 0.00)
+);
+
+CREATE TABLE cart(
+	cart_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	item_id INTEGER NOT NULL,
+	cons_id INTEGER,
+	dist_id INTEGER,
+	supp_id INTEGER,
+	quantity INTEGER,
+	FOREIGN KEY(item_id) REFERENCES item,
+	FOREIGN KEY(cons_id) REFERENCES consumer,
+	FOREIGN KEY(dist_id) REFERENCES distributor,
+	FOREIGN KEY(supp_id) REFERENCES supplier,
+	CONSTRAINT at_least_one_cart_owner CHECK (cons_id IS NOT NULL 
+		OR item_id IS NOT NULL OR supp_id IS NOT NULL),
+);
+
+CREATE TABLE shipment(
+	ship_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	item_id INTEGER NOT NULL,
+	quantity INTEGER NOT NULL,
+	expiry DATE NOT NULL,
+	FOREIGN KEY(item_id) REFERENCES item
+);
+

@@ -4,3 +4,5 @@
 
 1. Clone the repo using `git clone`.
 2. Ensure `uv` is installed.
+3. Run `uv sync`.
+
