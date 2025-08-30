@@ -1,0 +1,9 @@
+services:
+  db:
+    env_file: .env
+    image: postgres:alpine3.19
+    restart: always
+    environment:
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./database/:/root/database/
