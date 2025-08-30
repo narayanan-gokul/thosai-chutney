@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ResQFood - Supplier Dashboard</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #f0fff0, #d0ffd0);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+  }
+
+  .container {
+    background: #fff;
+    margin-top: 40px;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 700px;
+    text-align: center;
+  }
+
+  h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    color: #16a085;
+    margin-bottom: 30px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #27ae60;
+    color: white;
+  }
+
+  input[type="number"] {
+    width: 60%;
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+
+  button {
+    background-color: #27ae60;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+
+  button:hover {
+    background-color: #219150;
+    transform: scale(1.05);
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Welcome, Supplier!</h1>
+  <h2>Update Your Stock Items Below</h2>
+
+  <table id="stockTable">
+    <thead>
+      <tr>
+        <th>Item Name</th>
+        <th>Quantity Available</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Rice</td>
+        <td><input type="number" min="0" placeholder="Quantity"></td>
+      </tr>
+      <tr>
+        <td>Eggs</td>
+        <td><input type="number" min="0" placeholder="Quantity"></td>
+      </tr>
+      <tr>
+        <td>Bread</td>
+        <td><input type="number" min="0" placeholder="Quantity"></td>
+      </tr>
+      <tr>
+        <td>Milk</td>
+        <td><input type="number" min="0" placeholder="Quantity"></td>
+      </tr>
+      <tr>
+        <td>Meat</td>
+        <td><input type="number" min="0" placeholder="Quantity"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button onclick="submitStock()">Update Stock</button>
+</div>
+
+<script>
+  function submitStock() {
+    const table = document.getElementById('stockTable').getElementsByTagName('tbody')[0];
+    const rows = table.getElementsByTagName('tr');
+    let stockData = [];
+
+    for(let i=0; i<rows.length; i++) {
+      const itemName = rows[i].cells[0].textContent.trim();
+      const quantity = parseInt(rows[i].cells[1].getElementsByTagName('input')[0].value);
+
+      if(!isNaN(quantity)) {
+        stockData.push({ item: itemName, quantity: quantity });
+      }
+    }
+
+    console.log("Stock updated:", stockData);
+    alert("Stock information submitted! Check console for data.");
+
+    // Later: Replace with API call to backend to save stockData
+  }
+</script>
+
+</body>
+</html>

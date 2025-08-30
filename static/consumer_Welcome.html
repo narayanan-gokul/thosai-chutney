@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome - Food Lover | ResQFood</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f9f9f9, #d4fc79);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    .container {
+      background: #fff;
+      padding: 40px 50px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      width: 400px;
+    }
+    h1 { color: #2c3e50; }
+    p { color: #16a085; margin-bottom: 30px; font-size: 1.1rem; }
+    select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    button:hover {
+      background-color: #219150;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Welcome to Callorries</h1>
+
+
+  <label for="foodhubSelect">Select your FoodHub for this week:</label>
+  <select id="foodhubSelect">
+    <!-- Options will be populated dynamically from backend -->
+  </select>
+
+  <button onclick="proceedToSupply()">Continue</button>
+</div>
+
+<script>
+  // Example: Fetch foodhubs from backend (placeholder)
+  const availableFoodhubs = ["FoodHub A", "FoodHub B", "FoodHub C"]; // replace with API call
+  const select = document.getElementById("foodhubSelect");
+  availableFoodhubs.forEach(hub => {
+    const option = document.createElement("option");
+    option.value = hub;
+    option.text = hub;
+    select.add(option);
+  });
+
+  function proceedToSupply() {
+    const selectedHub = select.value;
+    if (!selectedHub) {
+      alert("Please select a FoodHub to continue.");
+      return;
+    }
+    // Store selected FoodHub (can be localStorage, session, or send to backend)
+    localStorage.setItem("selectedFoodhub", selectedHub);
+    window.location.href = "consumer_supply.html";
+  }
+</script>
+
+</body>
+</html>
