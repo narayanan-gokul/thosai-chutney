@@ -29,3 +29,28 @@ func CreateConsumer(conn *pgxpool.Pool, consumer *Consumer) int {
 	utils.CheckError(err)
 	return cons_id
 }
+
+func FindConsumer(conn *pgxpool.Pool, consId int) *Consumer {
+	tx, err := conn.Begin(context.Background())
+	utils.CheckError(err)
+	defer tx.Rollback(context.Background())
+
+	var consumer Consumer
+
+	row := tx.QueryRow(
+		context.Background(),
+		"SELECT * FROM consumer WHERE cons_id = $1",
+		consId,
+	)
+
+	err = row.Scan(
+		&consumer.ConsId,
+		&consumer.Postcode,
+		&consumer.FirstName,
+		&consumer.LastName,
+		&consumer.Password,
+	)
+	utils.CheckError(err)
+
+	return &consumer
+}

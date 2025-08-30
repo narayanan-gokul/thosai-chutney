@@ -28,3 +28,27 @@ func CreateSupplier(conn *pgxpool.Pool, supplier *Supplier) int {
 	utils.CheckError(err)
 	return supp_id
 }
+
+func FindSupplier(conn *pgxpool.Pool, suppId int) *Supplier {
+	tx, err := conn.Begin(context.Background())
+	utils.CheckError(err)
+	defer tx.Rollback(context.Background())
+
+	var supplier Supplier
+
+	row := tx.QueryRow(
+		context.Background(),
+		"SELECT * FROM supplier WHERE supp_id = $1",
+		suppId,
+	)
+
+	err = row.Scan(
+		&supplier.SuppId,
+		&supplier.Postcode,
+		&supplier.Name,
+		&supplier.Password,
+	)
+	utils.CheckError(err)
+
+	return &supplier
+}
