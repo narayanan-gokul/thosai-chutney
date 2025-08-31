@@ -1,0 +1,22 @@
+[
+  {
+    "item_id": 1,
+    "quantity": 20
+  },
+  {
+    "item_id": 2,
+    "quantity": 50
+  },
+  {
+    "item_id": 3,
+    "quantity": 30
+  },
+  {
+    "item_id": 4,
+    "quantity": 40
+  },
+  {
+    "item_id": 5,
+    "quantity": 15
+  }
+]
