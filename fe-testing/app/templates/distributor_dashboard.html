@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ResQFood - Distributor Dashboard</title>
+    <style>
+        body {
+            font-family: Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f0f9ff, #cbebff);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: #fff;
+            margin-top: 40px;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 750px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .summary {
+            background: #f7f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .summary p {
+            margin: 6px 0;
+            color: #333;
+        }
+        
+        .notice {
+            background: #fff3cd;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .table-wrapper {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+        
+        th {
+            background: #27ae60;
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Distributor Dashboard</h1>
+
+        <div class="summary">
+            <p><strong>Distributor Name:</strong> <span id="distributorName">Test Distributor</span></p>
+            <p><strong>Total Consumers Ordered:</strong> <span id="totalConsumers">0</span></p>
+            <p><strong>Total Items Requested:</strong> <span id="totalItems">0</span></p>
+        </div>
+
+        <div class="notice">
+            Orders received so far are being processed. You will be informed about fulfillable orders for this week by Friday 12 PM.
+        </div>
+
+        <h3>Individual Consumer Orders:</h3>
+        <div class="table-wrapper">
+            <table id="consumerTable">
+                <thead>
+                    <tr>
+                        <th>Consumer Name</th>
+                        <th>Item</th>
+                        <th>Quantity Requested</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        fetch("http://localhost:8000/api/distributor_orders")
+            .then(res => res.json())
+            .then(orders => {
+                const tbody = document.querySelector("#consumerTable tbody");
+                let totalItems = 0;
+                const consumersSet = new Set();
+
+                orders.forEach(order => {
+                    consumersSet.add(order.consumer_name);
+                    totalItems += order.quantity;
+
+                    const row = document.createElement("tr");
+                    row.innerHTML = `<td>${order.consumer_name}</td><td>${order.item}</td><td>${order.quantity}</td>`;
+                    tbody.appendChild(row);
+                });
+
+                document.getElementById("totalConsumers").textContent = consumersSet.size;
+                document.getElementById("totalItems").textContent = totalItems;
+            });
+    </script>
+</body>
+</html>
+
+

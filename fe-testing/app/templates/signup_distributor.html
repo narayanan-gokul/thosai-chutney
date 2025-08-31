@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Distributor Signup | Callorries</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: linear-gradient(135deg,#fff8e1,#ffe0b2);
+      display:flex; justify-content:center; align-items:center; height:100vh; margin:0; }
+    .container { background:#fff; padding:30px 40px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); width:400px; text-align:center; }
+    h2 { margin-bottom:20px; color:#2c3e50; }
+    input, select { width:100%; padding:10px; margin:8px 0; border:1px solid #ccc; border-radius:6px; }
+    button { width:100%; padding:12px; background:#f57c00; color:white; border:none; border-radius:6px; font-size:16px; cursor:pointer; }
+    button:hover { background:#e65100; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Distributor Signup</h2>
+  <form id="distributorForm">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="password" name="password" placeholder="Password" required>
+        <input type="postcode" name="postcode" placeholder="postcode" required>
+    <button type="submit">Sign Up</button>
+  </form>
+</div>
+
+<script>
+  async function signupDistributor() {
+    const data = {
+      hub_name: document.getElementById("hub_name").value,
+      location: document.getElementById("location").value,
+      email: document.getElementById("email").value,
+      password: document.getElementById("password").value
+    };
+
+    try {
+      const res = await fetch("http://localhost:8000/api/distributor/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      if (res.ok) {
+        document.getElementById("message").innerText = "✅ Signup successful!";
+        window.location.href = "login_distributor.html"; 
+      } else {
+        const err = await res.json();
+        document.getElementById("message").innerText = "❌ " + (err.detail || "Signup failed");
+      }
+    } catch (error) {
+      document.getElementById("message").innerText = "⚠️ Server error: " + error;
+    }
+  }
+</script>
+</body>
+</html>

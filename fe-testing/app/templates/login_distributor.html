@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Distributor Login | ResQFood</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f0f0f0, #d9fdd3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    .container {
+      background: #fff;
+      padding: 40px 50px;
+      border-radius: 15px;
+      box-shadow: 0px 6px 20px rgba(0,0,0,0.1);
+      width: 350px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #27ae60;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      padding: 12px 0;
+      font-size: 18px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 15px;
+      transition: all 0.2s ease-in-out;
+    }
+    button:hover { background-color: #219150; transform: scale(1.05); }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Distributor Login</h2>
+  <form id="loginDistributorForm">
+    <input type="userId" id="userId" placeholder="Enter UserId" required>
+    <input type="password" id="password" placeholder="Enter Password" required>
+    <button type="submit">Login</button>
+  </form>
+</div>
+
+<script>
+document.getElementById("loginDistributorForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+  const UserId = document.getElementById("userId").value;
+  const password = document.getElementById("password").value;
+
+  const res = await fetch("http://localhost:8000/api/login", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({ userId, password })
+  });
+
+  if(res.ok){
+    const data = await res.json();
+    if(data.role === "Distributor"){
+      window.location.href = "distributor_dashboard.html";
+    } else {
+      alert("This is not a distributor account.");
+    }
+  } else {
+    alert("Login failed. Check credentials.");
+  }
+});
+</script>
+
+</body>
+</html>

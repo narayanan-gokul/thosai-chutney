@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Supplier Signup | Callorries</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: linear-gradient(135deg,#fff8e1,#ffe0b2);
+      display:flex; justify-content:center; align-items:center; height:100vh; margin:0; }
+    .container { background:#fff; padding:30px 40px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); width:400px; text-align:center; }
+    h2 { margin-bottom:20px; color:#2c3e50; }
+    input, select { width:100%; padding:10px; margin:8px 0; border:1px solid #ccc; border-radius:6px; }
+    button { width:100%; padding:12px; background:#f57c00; color:white; border:none; border-radius:6px; font-size:16px; cursor:pointer; }
+    button:hover { background:#e65100; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Supplier Signup</h2>
+  <form id="supplierForm">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="password" name="password" placeholder="Password" required>
+        <input type="postcode" name="postcode" placeholder="postcode" required>
+    <button type="submit">Sign Up</button>
+  </form>
+</div>
+
+<script>
+document.getElementById("supplierForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+
+  const formData = Object.fromEntries(new FormData(this));
+
+  const res = await fetch("http://localhost:8000/api/supplier/signup", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify(formData)
+  });
+
+  if(res.ok){
+    alert("Supplier signup successful!");
+    window.location.href = "login.html"; 
+
+  } else {
+    alert("Signup failed. Please try again.");
+  }
+});
+</script>
+</body>
+</html>
+
