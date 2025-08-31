@@ -31,14 +31,12 @@
       cursor: pointer;
       transition: all 0.2s ease-in-out;
       box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-      position: relative; /* Needed for tooltip */
+      position: relative;
     }
     button:hover {
       background-color: #13856d;
       transform: scale(1.05);
     }
-
-    /* Tooltip styles */
     .tooltip {
       visibility: hidden;
       width: 240px;
@@ -48,7 +46,7 @@
       padding: 8px 10px;
       border-radius: 6px;
       position: absolute;
-      bottom: 125%; /* Show above the button */
+      bottom: 125%;
       left: 50%;
       transform: translateX(-50%);
       opacity: 0;
@@ -70,6 +68,9 @@
       visibility: visible;
       opacity: 1;
     }
+    .login-section {
+      margin-top: 50px;
+    }
   </style>
 </head>
 <body>
@@ -79,31 +80,37 @@
 
   <p><strong>Tell us who you are so we can get started!</strong></p>
 
-  <button onclick="selectRole('Consumer')">
+  <!-- Signup buttons -->
+  <button onclick="window.location.href='signup_consumer.html'">
     Consumer
     <span class="tooltip">Request food from nearby FoodHubs to reduce waste and help your community.</span>
   </button>
 
-  <button onclick="selectRole('Distributor')">
+  <button onclick="window.location.href='signup_distributor.html'">
     Distributor
     <span class="tooltip">Manage orders and distribute food from suppliers to consumers in your area.</span>
   </button>
 
-  <button onclick="selectRole('Supplier')">
+  <button onclick="window.location.href='signup_supplier.html'">
     Supplier
     <span class="tooltip">Supply food to FoodHubs and contribute to minimizing surplus and waste.</span>
   </button>
 
-  <script>
-    function selectRole(role) {
-      alert("You selected: " + role);
-      // Later, redirect to role-specific pages:
-      // window.location.href = role.toLowerCase() + ".html";
-    }
-  </script>
+  <!-- Login buttons -->
+  <div class="login-section">
+    <p>Already signed up? Login here:</p>
+    <button onclick="window.location.href='login_consumer.html'">
+      Login as Consumer
+    </button>
+    <button onclick="window.location.href='login_distributor.html'">
+      Login as Distributor
+    </button>
+  </div>
 
 </body>
 </html>
+
+
 
 
 

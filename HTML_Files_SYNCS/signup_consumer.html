@@ -55,7 +55,7 @@
 </head>
 <body>
   <div class="container">
-    <h2>Signup</h2>
+    <h2>Signup as a Consumer</h2>
     <form id="consumerForm">
       <label>First Name</label>
       <input type="text" name="firstName" required>
@@ -70,14 +70,27 @@
   </div>
 
   <script>
-    document.getElementById("consumerForm").addEventListener("submit", function(e){
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      let data = {};
-      formData.forEach((value, key) => data[key] = value);
-      console.log("Consumer registered:", data);
-      alert("Consumer registration successful!");
-    });
-  </script>
+document.getElementById("loginForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+
+  const formData = { userId: document.getElementById("userId").value };
+
+  const res = await fetch("http://localhost:8000/api/login/consumer", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify(formData)
+  });
+
+  if(res.ok){
+    const data = await res.json();
+    alert("Login successful!");
+    localStorage.setItem("userId", data.userId);
+    window.location.href = "consumer_welcome.html";
+  } else {
+    const error = await res.json();
+    alert("Login failed: " + error.detail);
+  }
+});
+</script>
 </body>
 </html>
