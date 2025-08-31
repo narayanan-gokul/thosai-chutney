@@ -1,0 +1,32 @@
+[
+  {
+    "item_id": 1,
+    "cons_id": 1,
+    "quantity": 5
+  },
+  {
+    "item_id": 2,
+    "cons_id": 1,
+    "quantity": 12
+  },
+  {
+    "item_id": 3,
+    "cons_id": 2,
+    "quantity": 2
+  },
+  {
+    "item_id": 4,
+    "cons_id": 3,
+    "quantity": 5
+  },
+  {
+    "item_id": 1,
+    "dist_id": 1,
+    "quantity": 10
+  },
+  {
+    "item_id": 2,
+    "dist_id": 1,
+    "quantity": 15
+  }
+]

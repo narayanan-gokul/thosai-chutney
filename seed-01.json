@@ -1,0 +1,20 @@
+[
+  {
+    "postcode": 2000,
+    "first_name": "Keshav",
+    "last_name": "Goel",
+    "password": "pass123"
+  },
+  {
+    "postcode": 2100,
+    "first_name": "Kartik",
+    "last_name": "jain",
+    "password": "pass456"
+  },
+  {
+    "postcode": 2200,
+    "first_name": "Vaibhav",
+    "last_name": "Singh",
+    "password": "pass789"
+  }
+]

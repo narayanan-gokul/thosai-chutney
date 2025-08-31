@@ -1,0 +1,17 @@
+[
+  {
+    "postcode": 2000,
+    "name": "FoodHub1",
+    "password": "hub1pass"
+  },
+  {
+    "postcode": 2100,
+    "name": "FoodHub2",
+    "password": "hub2pass"
+  },
+  {
+    "postcode": 2200,
+    "name": "FoodHub3",
+    "password": "hub3pass"
+  }
+]

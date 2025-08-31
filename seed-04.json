@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Rice",
+    "max_cap": 10
+  },
+  {
+    "name": "Eggs",
+    "max_cap": 30
+  },
+  {
+    "name": "Bread",
+    "max_cap": 15
+  },
+  {
+    "name": "Milk",
+    "max_cap": 20
+  },
+  {
+    "name": "Meat",
+    "max_cap": 10
+  }
+]
