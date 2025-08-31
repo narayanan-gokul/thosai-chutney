@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FoodCycle</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f9f9f9, #e3ffe7);
+      text-align: center;
+      padding: 60px;
+    }
+    h1 {
+      font-size: 3rem;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 1.5rem;
+      color: #16a085;
+      margin-bottom: 40px;
+    }
+    button {
+      background-color: #16a085;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      padding: 14px 32px;
+      margin: 15px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    button:hover {
+      background-color: #13856d;
+      transform: scale(1.05);
+    }
+    .tooltip {
+      visibility: hidden;
+      width: 240px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 8px 10px;
+      border-radius: 6px;
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 14px;
+      z-index: 1;
+    }
+    .tooltip::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #333 transparent transparent transparent;
+    }
+    button:hover .tooltip {
+      visibility: visible;
+      opacity: 1;
+    }
+    .login-section {
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome to Callorries</h1>
+  <h2>Connecting Consumers, Distributors, and Suppliers to Reduce Food Waste</h2>
+
+  <p><strong>Tell us who you are so we can get started!</strong></p>
+
+  <!-- Signup buttons -->
+  <button onclick="window.location.href='signup_consumer.html'">
+    Consumer
+    <span class="tooltip">Request food from nearby FoodHubs to reduce waste and help your community.</span>
+  </button>
+
+  <button onclick="window.location.href='signup_distributor.html'">
+    Distributor
+    <span class="tooltip">Manage orders and distribute food from suppliers to consumers in your area.</span>
+  </button>
+
+  <button onclick="window.location.href='signup_supplier.html'">
+    Supplier
+    <span class="tooltip">Supply food to FoodHubs and contribute to minimizing surplus and waste.</span>
+  </button>
+
+  <!-- Login buttons -->
+  <div class="login-section">
+    <p>Already signed up? Login here:</p>
+    <button onclick="window.location.href='login_consumer.html'">
+      Login as Consumer
+    </button>
+    <button onclick="window.location.href='login_distributor.html'">
+      Login as Distributor
+    </button>
+  </div>
+
+</body>
+</html>
+
+
+
+
+
+

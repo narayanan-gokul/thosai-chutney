@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome | ResQFood</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f0f9f0; text-align:center; padding:50px; }
+    .container { background:#fff; padding:40px; border-radius:12px; display:inline-block; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
+    select, button { padding:10px; margin:10px; font-size:16px; border-radius:6px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome, <span id="consumerName">User</span>!</h1>
+    <p>Select your FoodHub for this week:</p>
+    <select id="foodhubSelect">
+      <option value="">Available FoodHubs</option>
+    </select>
+    <br>
+    <button onclick="proceed()">Proceed</button>
+  </div>
+
+<script>
+  // Assume userId + postcode stored in localStorage after login
+  const userId = localStorage.getItem("userId") || "C123";
+  const postcode = localStorage.getItem("postcode") || "2000";
+
+  fetch("http://localhost:8000/api/welcome/consumer", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({userId: userId, postcode: postcode})
+  })
+  .then(res => res.json())
+  .then(data => {
+    const select = document.getElementById("foodhubSelect");
+    select.innerHTML = "";
+    data.foodhubs.forEach(hub => {
+      const opt = document.createElement("option");
+      opt.value = hub.id;
+      opt.textContent = hub.name;
+      select.appendChild(opt);
+    });
+  });
+
+  function proceed() {
+    const selectedHub = document.getElementById("foodhubSelect").value;
+    if(selectedHub) {
+      localStorage.setItem("foodhubId", selectedHub);
+      window.location.href = "consumer_supply.html"; 
+    } else {
+      alert("Please select a FoodHub!");
+    }
+  }
+</script>
+</body>
+</html>
+

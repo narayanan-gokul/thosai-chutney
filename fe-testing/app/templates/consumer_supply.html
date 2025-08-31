@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Select Your Supplies | ResQFood</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f9f9f9, #fcdfb3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    .container {
+      background: #fff;
+      padding: 40px 50px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      width: 500px;
+    }
+    h1 { color: #2c3e50; margin-bottom: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    th, td { padding: 10px; border: 1px solid #ccc; text-align: center; }
+    input { width: 60px; }
+    button {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: 0.2s;
+    }
+    button:hover { background-color: #219150; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Select Your Weekly Supplies</h1>
+  <table id="supplyTable">
+    <tr>
+      <th>Food Item</th>
+      <th>Max Quantity</th>
+      <th>Quantity Needed</th>
+    </tr>
+    <!-- Rows will be populated dynamically -->
+  </table>
+
+  <button onclick="submitOrder()">Submit Order</button>
+</div>
+
+<script>
+  // Example: Fetch items and max quantity from backend (placeholder)
+  const foodItems = [
+    {id: 1, name: "Rice(in kg)", max: 10},
+    {id: 2, name: "Eggs(per unit)", max: 12},
+    {id: 3, name: "Milk(in litres)", max: 10},
+    {id: 4, name: "Chicken", max: 5},
+    {id: 5, name: "Bread(per packet)", max: 3}
+  ];
+
+  const table = document.getElementById("supplyTable");
+  foodItems.forEach(item => {
+    const row = table.insertRow();
+    row.innerHTML = `
+      <td>${item.name}</td>
+      <td>${item.max}</td>
+      <td><input type="number" min="0" max="${item.max}" value="0" data-id="${item.id}"></td>
+    `;
+  });
+
+  function submitOrder() {
+    const quantities = {};
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+      const qty = parseInt(input.value);
+      const id = input.getAttribute("data-id");
+      const max = parseInt(input.max);
+      if(qty < 0 || qty > max) {
+        alert(`Invalid quantity for ${foodItems.find(f=>f.id==id).name}`);
+        return;
+      }
+      quantities[id] = qty;
+    });
+
+    console.log("Order submitted:", quantities);
+    alert("Your weekly order has been submitted!");
+    // Later: send this order to backend API
+  }
+</script>
+
+</body>
+</html>
